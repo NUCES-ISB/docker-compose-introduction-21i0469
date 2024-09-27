@@ -1,0 +1,27 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: salman
+      POSTGRES_PASSWORD: salman12345
+      POSTGRES_DB: blogdb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432" 
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: salman@admin.com
+      PGADMIN_DEFAULT_PASSWORD: salman12345
+    ports:
+      - "5050:80" # Expose pgAdmin on port 5050
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
