@@ -1,0 +1,35 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main  # Run the workflow only on pushes to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Docker Buildx (optional for multi-platform builds)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Step 3: Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: salmanahmad0469
+          password: SalMan2002
+      # Step 4: Build and tag the Docker image
+      - name: Build and Tag Docker Image
+        run: |
+          docker build -t salmanahmad0469/blogapp:v2 .
+
+      # Step 5: Push the Docker image to Docker Hub
+      - name: Push Docker Image
+        run: |
+          docker push salmanahmad0469/blogapp:v2
